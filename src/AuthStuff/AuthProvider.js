@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
+import localhost from 'react-native-localhost'
 import {
   GoogleSignin,
   GoogleSigninButton,
@@ -17,7 +18,7 @@ GoogleSignin.configure({
   // loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
   // forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
   // accountName: '', // [Android] specifies an account name on the device that should be used
-  // iosClientId: '<FROM DEVELOPER CONSOLE>', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+  iosClientId: '15426169653-8pjq78dpmgi54k036dk6uun28s9ihb65.apps.googleusercontent.com', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
   // googleServicePlistPath: '', // [iOS] optional, if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
 });
 
@@ -27,8 +28,9 @@ export const AuthProvider = props => {
   8;
 
   const VerifyAndFetch = (token, provider) => {
+    console.log(localhost)
     axios
-      .post('http://192.168.1.148:3000/auth/login', {
+      .post(`http://${localhost}:3000/auth/login`, {
         provider: provider,
         token: token,
       })

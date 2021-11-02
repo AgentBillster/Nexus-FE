@@ -145,7 +145,6 @@
 				772186A5181D7CF5AC2E3024 /* Pods-gameThing-gameThingTests.debug.xcconfig */,
 				8034DFBAA4BD5B0726225774 /* Pods-gameThing-gameThingTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
