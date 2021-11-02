@@ -15,6 +15,7 @@ import {
 import {ProgressBarCircle} from '../components/ProgressBarCircle';
 import axios from 'axios';
 const {width, height} = Dimensions.get('screen');
+import {AuthContext} from '../AuthStuff/AuthProvider';
 
 export const PlayerSetup = ({navigation}) => {
   const flatListRef = useRef(null);
@@ -85,6 +86,8 @@ export const PlayerSetup = ({navigation}) => {
 };
 
 const Slide1 = ({scrollToPage}) => {
+  const {logout} = useContext(AuthContext);
+
   return (
     <View style={styles.slideDiv}>
       <View style={styles.content}>
@@ -100,6 +103,7 @@ const Slide1 = ({scrollToPage}) => {
           }}>
           <Text>Continue</Text>
         </TouchableOpacity>
+        <Button title={'logout'} onPress={logout} />
       </View>
     </View>
   );

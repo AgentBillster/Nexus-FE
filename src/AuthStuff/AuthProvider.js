@@ -1,12 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {useState} from 'react';
-import localhost from 'react-native-localhost'
+import localhost from 'react-native-localhost';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import axios from 'axios';
+import {Platform} from 'react-native';
 
 export const AuthContext = React.createContext({});
 
@@ -18,21 +19,21 @@ GoogleSignin.configure({
   // loginHint: '', // [iOS] The user's ID, or email address, to be prefilled in the authentication UI if possible. [See docs here](https://developers.google.com/identity/sign-in/ios/api/interface_g_i_d_sign_in.html#a0a68c7504c31ab0b728432565f6e33fd)
   // forceCodeForRefreshToken: true, // [Android] related to `serverAuthCode`, read the docs link below *.
   // accountName: '', // [Android] specifies an account name on the device that should be used
-  iosClientId: '15426169653-8pjq78dpmgi54k036dk6uun28s9ihb65.apps.googleusercontent.com', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
+  iosClientId:
+    '15426169653-8pjq78dpmgi54k036dk6uun28s9ihb65.apps.googleusercontent.com', // [iOS] optional, if you want to specify the client ID of type iOS (otherwise, it is taken from GoogleService-Info.plist)
   // googleServicePlistPath: '', // [iOS] optional, if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
 });
 
 export const AuthProvider = props => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
-  8;
 
-  const VerifyAndFetch = (token, provider) => {
-    console.log(localhost)
+  const validateUser = (token, provider) => {
     axios
-      .post(`http://${localhost}:3000/auth/login`, {
+      .post(`http://${localhost}:3000/auth/googleAuth`, {
         provider: provider,
         token: token,
+        platform: Platform.OS,
       })
       .then(res => {
         setUser(res.data);
@@ -40,40 +41,68 @@ export const AuthProvider = props => {
       .catch(err => console.log(err));
   };
 
-  const googleLogin = async () => {
-    try {
-      await GoogleSignin.signIn().then(googUser => {
-        VerifyAndFetch(googUser.idToken, 'google');
-        AsyncStorage.setItem('withProvider', 'google');
+  const handleGoogleLogin = async () => {
+    const bool = await AsyncStorage.getItem('isAuthed');
+    if (bool === 'true') {
+      console.log('logged');
+      await GoogleSignin.signInSilently().then(googUser => {
+        validateUser(googUser.idToken, 'google');
       });
-      setLoading(false);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('user cancelled login');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('user already logging in');
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('no play services');
-      } else {
-        console.log(error);
-      }
+    } else {
+      console.log('notelogged');
+      await GoogleSignin.signIn()
+        .then(googUser => {
+          validateUser(googUser.idToken, 'google');
+          const i = ['withProvider', 'google'];
+          const k = ['isAuthed', 'true'];
+          AsyncStorage.multiSet([i, k]);
+        })
+        .catch(error => {
+          if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+            console.log('user cancelled login');
+          } else if (error.code === statusCodes.IN_PROGRESS) {
+            console.log('user already logging in');
+          } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+            console.log('no play services');
+          } else {
+            console.log(error);
+          }
+        });
     }
+    setLoading(false);
   };
 
-  const silentGoogleLogin = async () => {
-    try {
-      await GoogleSignin.signInSilently().then(googUser => {
-        VerifyAndFetch(googUser.idToken, 'google');
-      });
-      setLoading(false);
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
-        setLoading(false);
-      } else {
-        console.log('something else happened');
-      }
-    }
-  };
+  // const handleGoogleLogin = async () => {
+  //   await AsyncStorage.getItem('isAuthed').then(res => {
+  //     if (res === 'true') {
+  //       console.log('logged');
+  //       GoogleSignin.signInSilently().then(googUser => {
+  //         validateUser(googUser.idToken, 'google');
+  //       });
+  //     } else {
+  //       console.log('notelogged');
+  //       GoogleSignin.signIn()
+  //         .then(googUser => {
+  //           validateUser(googUser.idToken, 'google');
+  //           const i = ['withProvider', 'google'];
+  //           const k = ['isAuthed', 'true'];
+  //           AsyncStorage.multiSet([i, k]);
+  //         })
+  //         .catch(error => {
+  //           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+  //             console.log('user cancelled login');
+  //           } else if (error.code === statusCodes.IN_PROGRESS) {
+  //             console.log('user already logging in');
+  //           } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+  //             console.log('no play services');
+  //           } else {
+  //             console.log(error);
+  //           }
+  //         });
+  //     }
+  //   });
+  //   setLoading(false);
+  // };
 
   const logout = async () => {
     try {
@@ -91,8 +120,7 @@ export const AuthProvider = props => {
         user,
         loading,
         setLoading,
-        googleLogin,
-        silentGoogleLogin,
+        handleGoogleLogin,
         logout,
       }}>
       {props.children}

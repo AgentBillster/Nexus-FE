@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   StyleSheet,
   TouchableOpacity,
+  Platform,
 } from 'react-native';
 import {AuthContext} from './AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,7 +24,7 @@ Actual auth Logic is being handled inside of AuthProvider component and passed i
 const Stack = createStackNavigator();
 
 const AuthScreen = ({navigation}) => {
-  const {googleLogin, facebookLogin, VerifyAndFetch} = useContext(AuthContext);
+  const {handleGoogleLogin, facebookLogin} = useContext(AuthContext);
 
   const loginthing = () => {
     LoginManager.logInWithPermissions(['public_profile']).then(
@@ -47,7 +48,7 @@ const AuthScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.Button1}
         onPress={() => {
-          googleLogin();
+          handleGoogleLogin();
         }}>
         <Text style={{fontSize: 25}}>Log in with Google</Text>
       </TouchableOpacity>

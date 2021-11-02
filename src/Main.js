@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {ActivityIndicator, View, Button} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import {AuthContext} from './AuthStuff/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStack from './AuthStuff/AuthStack';
-import Dispatch from './Utils/Dispatch';
+import {Dispatch, getFromStorage} from './Utils/HelperFunctions';
 
 // import {Profile, LoginManager} from 'react-native-fbsdk-next';
 
 export const Main = () => {
-  const {user, silentGoogleLogin, loading, setLoading} =
+  const {user, handleGoogleLogin, loading, setLoading} =
     useContext(AuthContext);
 
   const MyTheme = {
@@ -20,25 +20,12 @@ export const Main = () => {
     },
   };
 
-  // const currentProfile = Profile.getCurrentProfile().then(function (
-  //   currentProfile,
-  // ) {
-  //   if (currentProfile) {
-  //     console.log(
-  //       'The current logged user is: ' +
-  //         currentProfile.name +
-  //         '. His profile id is: ' +
-  //         currentProfile.userID,
-  //     );
-  //   }
-  // });
-
   useEffect(() => {
     AsyncStorage.getItem('withProvider').then(provider => {
       if (provider) {
         switch (provider) {
           case 'google':
-            silentGoogleLogin();
+            handleGoogleLogin();
             break;
           case 'facebook':
             console.log('from facebook');
