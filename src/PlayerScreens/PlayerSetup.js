@@ -1,6 +1,8 @@
 import React, {useState, useContext, useEffect, useRef} from 'react';
+import localhost from 'react-native-localhost';
 import {ProgressBarLine} from '../components/ProgressBarLine';
 import styles from './Styles';
+
 import {
   StatusBar,
   FlatList,
@@ -138,7 +140,7 @@ const Slide3 = ({scrollToPage}) => {
 
   useEffect(() => {
     axios
-      .get('http://192.168.1.148:3000/auth/get')
+      .get(`http://${localhost}:3000/auth/get`)
       .then(res => {
         setGames(res.data);
         setLoading(false);

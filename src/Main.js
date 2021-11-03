@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {ActivityIndicator, View} from 'react-native';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 import {AuthContext} from './AuthStuff/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStack from './AuthStuff/AuthStack';
@@ -39,13 +39,8 @@ export const Main = () => {
 
   if (loading) {
     return (
-      <View>
-        <ActivityIndicator
-          animating={true}
-          size="large"
-          style={{opacity: 1}}
-          color="#999999"
-        />
+      <View style={[styles.container, styles.horizontal]}>
+        <ActivityIndicator size="large" color="#00ff00" />
       </View>
     );
   }
@@ -56,3 +51,16 @@ export const Main = () => {
     </NavigationContainer>
   );
 };
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  }
+});
