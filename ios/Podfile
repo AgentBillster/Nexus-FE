@@ -16,6 +16,8 @@ target 'gameThing' do
 
   
 
+  pod 'SRSRadialGradient', :path => '../node_modules/react-native-radial-gradient'
+
   target 'gameThingTests' do
     inherit! :complete
     # Pods for testing

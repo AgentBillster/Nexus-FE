@@ -9,6 +9,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Platform,
+  StatusBar,
 } from 'react-native';
 import {AuthContext} from './AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -45,6 +46,8 @@ const AuthScreen = ({navigation}) => {
 
   return (
     <View style={{flex: 1, justifyContent: 'center'}}>
+      <StatusBar hidden={true} />
+
       <TouchableOpacity
         style={styles.Button1}
         onPress={() => {
@@ -52,7 +55,6 @@ const AuthScreen = ({navigation}) => {
         }}>
         <Text style={{fontSize: 25}}>Log in with Google</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.Button1}
         onPress={() => {
@@ -60,7 +62,6 @@ const AuthScreen = ({navigation}) => {
         }}>
         <Text style={{fontSize: 25}}>Log in with Facebook</Text>
       </TouchableOpacity>
-
       <TouchableOpacity
         style={styles.Button1}
         onPress={() => {

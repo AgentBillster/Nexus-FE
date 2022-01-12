@@ -1,29 +1,30 @@
-import React, {useContext} from 'react';
-import {PlayerSetup} from '../PlayerScreens/PlayerSetup';
-import PlayerTabs from '../PlayerScreens/PlayerTabs';
-import {AuthContext} from '../AuthStuff/AuthProvider';
-import VenueFTS from '../VenueScreens/VenueFTS';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import React, {useContext} from 'react';
 
-export const Dispatch = () => {
-  const {user} = useContext(AuthContext);
+// import {TabNavigator} from '../PlayerScreens/DashScreens/TabNavigator';
+// import {AuthContext} from '../AuthStuff/AuthProvider';
+// import VenueFTS from '../VenueScreens/VenueFTS';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
+// import {PlayerSetup} from '../PlayerScreens/SetupScreens/PlayerSetup';
 
-  const toSetup = {
-    player: <PlayerSetup />,
-    venue: <VenueFTS />,
-  };
+// export const Dispatch = () => {
+//   const {user} = useContext(AuthContext);
 
-  const toDash = {
-    player: <PlayerTabs />,
-    venue: <VenueFTS />,
-  };
+//   const toSetup = {
+//     player: <PlayerSetup />,
+//     venue: <VenueFTS />,
+//   };
 
-  if (user.setup === false) {
-    return toSetup[user.role];
-  } else {
-    return toDash[user.role];
-  }
-};
+//   const toDash = {
+//     player: <TabNavigator />,
+//     venue: <VenueFTS />,
+//   };
+
+//   if (user.setup === false) {
+//     return toSetup[user.role];
+//   } else {
+//     return toDash[user.role];
+//   }
+// };
 
 // take in user obj
 // check if user is venue or player

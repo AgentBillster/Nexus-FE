@@ -5,18 +5,19 @@ import {AuthContext} from './AuthStuff/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStack from './AuthStuff/AuthStack';
 import {Dispatch, getFromStorage} from './Utils/HelperFunctions';
+import {TabNavigator} from './PlayerScreens/DashScreens/TabNavigator';
 
 // import {Profile, LoginManager} from 'react-native-fbsdk-next';
 
 export const Main = () => {
-  const {user, handleGoogleLogin, loading, setLoading} =
+  const {user, handleGoogleLogin, loading, setLoading, logout} =
     useContext(AuthContext);
 
   const MyTheme = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: 'white',
+      background: 'rgb(27,34,47)',
     },
   };
 
@@ -47,20 +48,19 @@ export const Main = () => {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      {user ? <Dispatch /> : <AuthStack />}
+      {user ? <TabNavigator /> : <AuthStack />}
     </NavigationContainer>
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center',
   },
   horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    padding: 10
-  }
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
 });
