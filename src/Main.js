@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {AuthContext} from './AuthStuff/AuthProvider';
+import React, { useContext, useEffect, useState } from 'react';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { AuthContext } from './AuthStuff/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStack from './AuthStuff/AuthStack';
-import {Dispatch, getFromStorage} from './Utils/HelperFunctions';
-import {TabNavigator} from './PlayerScreens/DashScreens/TabNavigator';
+import { Dispatch, getFromStorage } from './Utils/HelperFunctions';
+import { TabNavigator } from './PlayerScreens/DashScreens/TabNavigator';
 
 // import {Profile, LoginManager} from 'react-native-fbsdk-next';
 
 export const Main = () => {
-  const {user, handleGoogleLogin, loading, setLoading, logout} =
+  const { user, handleGoogleLogin, loading, setLoading, logout } =
     useContext(AuthContext);
 
   const MyTheme = {
@@ -20,6 +20,7 @@ export const Main = () => {
       background: 'rgb(27,34,47)',
     },
   };
+
 
   useEffect(() => {
     AsyncStorage.getItem('withProvider').then(provider => {

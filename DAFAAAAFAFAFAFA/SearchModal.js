@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   View,
   Text,
@@ -11,16 +11,16 @@ import {
   TextInput,
   ActivityIndicator,
 } from 'react-native';
-import {CloseIcon} from '../assets/Icons';
-import {getGameData} from '../../apiconfig';
-import {Picker} from '@react-native-picker/picker';
+import { CloseIcon } from '../src/assets/Icons';
+import { getGameData } from '../apiconfig';
+import { Picker } from '@react-native-picker/picker';
 import localhost from 'react-native-localhost';
-import {AuthContext} from '../AuthStuff/AuthProvider';
-import {SetupContext} from '../PlayerScreens/SetupScreens/SetupProvider';
-import {TabNavigator} from '../PlayerScreens/DashScreens/TabNavigator';
-import {useNavigation} from '@react-navigation/native';
+import { AuthContext } from '../src/AuthStuff/AuthProvider';
+import { SetupContext } from '../src/PlayerScreens/SetupScreens/SetupProvider';
+import { TabNavigator } from '../src/PlayerScreens/DashScreens/TabNavigator';
+import { useNavigation } from '@react-navigation/native';
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 export const SearchModal = ({
   modalVisible,
@@ -28,13 +28,13 @@ export const SearchModal = ({
   name,
   platforms,
 }) => {
-  const {user} = useContext(AuthContext);
-  const {setupInfo} = useContext(SetupContext);
+  const { user } = useContext(AuthContext);
+  const { setupInfo } = useContext(SetupContext);
   const [timeLeft, setTimeLeft] = useState();
   const [text, setText] = useState(null);
   const [slug, setSlug] = useState(platforms[0]);
   const [data, setData] = useState(null);
-  const navigation = useNavigation();
+
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -49,7 +49,7 @@ export const SearchModal = ({
   }, [timeLeft]);
 
   const handleInput = e => {
-    const {text} = e.nativeEvent;
+    const { text } = e.nativeEvent;
     setText(text);
     setTimeLeft(2);
   };
@@ -63,9 +63,10 @@ export const SearchModal = ({
         setupInfo: setupInfo,
       })
       .then(res => {
-        if (res.data === 'success') {
-          navigation.navigate('profile');
-        }
+        console.log(res)
+        // if (res.data === 'success') {
+        //   navigation.navigate('profile');
+        // }
       })
       .catch(err => {
         console.log(err);
@@ -115,10 +116,10 @@ export const SearchModal = ({
           {data && (
             <TouchableOpacity
               onPress={linkProfile}
-              style={{width: 70, height: 70, alignSelf: 'center'}}>
+              style={{ width: 70, height: 70, alignSelf: 'center' }}>
               <Image
-                source={{uri: data.avatar}}
-                style={{width: '100%', height: '100%'}}
+                source={{ uri: data.avatar }}
+                style={{ width: '100%', height: '100%' }}
               />
             </TouchableOpacity>
           )}

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
   View,
@@ -10,27 +10,30 @@ import {
   StatusBar,
 } from 'react-native';
 import localhost from 'react-native-localhost';
-import {SharedElement} from 'react-navigation-shared-element';
+import { SharedElement } from 'react-navigation-shared-element';
+import { Modals } from "./Modals"
+import { BlurView, VibrancyView } from "@react-native-community/blur";
 
-const {width, height} = Dimensions.get('screen');
 
-export const GameList = ({navigation}) => {
+const { width, height } = Dimensions.get('screen');
+
+export const GameList = () => {
   const [games, setGames] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [linked, setLinked] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const numColumns = 2;
 
   const formatData = (dataList, numColumns) => {
     while (dataList.length % numColumns != 0) {
-      dataList.push({key: 'blank', empty: true});
+      dataList.push({ key: 'blank', empty: true });
     }
     return dataList;
   };
 
   useEffect(() => {
     axios
-      .get(`http://${localhost}:3000/auth/get`)
+      .get(`http://${"10.0.2.2"}:3000/auth/get`)
       .then(res => {
         setGames(res.data);
         setLoading(false);
@@ -38,7 +41,7 @@ export const GameList = ({navigation}) => {
       .catch(err => console.log(err));
   }, []);
 
-  const _renderItem = ({item}) => {
+  const _renderItem = ({ item }) => {
     // invisible render item
     if (item.empty) {
       return (
@@ -58,7 +61,8 @@ export const GameList = ({navigation}) => {
     return (
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate('GameDetails', {item});
+          // OPEN MODAL
+          setModalVisible(true)
         }}
         style={{
           flex: 1,
@@ -68,7 +72,7 @@ export const GameList = ({navigation}) => {
           borderRadius: 10,
         }}>
         <Image
-          source={{uri: item.image}}
+          source={{ uri: item.image }}
           style={{
             width: '100%',
             height: '100%',
@@ -80,10 +84,9 @@ export const GameList = ({navigation}) => {
 
   if (!loading) {
     return (
-      <View
-        style={{
-          flex: 1,
-        }}>
+      <View style={{ width: width }}>
+
+
         {/* <StatusBar translucent backgroundColor="transparent" /> */}
         <FlatList
           data={formatData(games, numColumns)}
@@ -91,14 +94,25 @@ export const GameList = ({navigation}) => {
           numColumns={numColumns}
           renderItem={_renderItem}
         />
-        {/* <View
+
+        {modalVisible && <BlurView
           style={{
-            width: width,
-            height: 50,
-            backgroundColor: 'white',
-          }}>
-          <Text>{`${linked} games linked`}</Text>
-        </View> */}
+            position: "absolute",
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+          }}
+          blurType="dark"
+          blurAmount={10}
+        />}
+
+        <Modals modalVisible={modalVisible} setModalVisible={setModalVisible} >
+          <Text>afasfasf</Text>
+        </Modals>
+
+
+
       </View>
     );
   } else {
@@ -106,6 +120,3 @@ export const GameList = ({navigation}) => {
   }
 };
 
-// other thigns this screen needs:
-// 1. a bar that dictates what games you have registered to yor account and how many.
-// 2. the three dots top right corner dropdown a "dont see your game?" prompt

@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import localhost from 'react-native-localhost';
 import {
   GoogleSignin,
@@ -7,7 +7,8 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import axios from 'axios';
-import {Platform} from 'react-native';
+import { Platform } from 'react-native';
+import { nodestuff } from "../../secrets"
 
 export const AuthContext = React.createContext({});
 
@@ -24,29 +25,32 @@ GoogleSignin.configure({
   // googleServicePlistPath: '', // [iOS] optional, if you renamed your GoogleService-Info file, new name here, e.g. GoogleService-Info-Staging
 });
 
+
 export const AuthProvider = props => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   const validateUser = (token, provider) => {
     axios
-      .post(`http://${localhost}:3000/auth/googleAuth`, {
+      .post(`http://${nodestuff.net}:3000/auth/googleAuth`, {
         provider: provider,
         token: token,
         platform: Platform.OS,
       })
       .then(res => {
         setUser(res.data);
+
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err + "node?"));
   };
 
   const handleGoogleLogin = async () => {
     const bool = await AsyncStorage.getItem('isAuthed');
     if (bool === 'true') {
-      console.log('logged');
+      console.log("authed")
+
       await GoogleSignin.signInSilently().then(googUser => {
-        validateUser(googUser.idToken, 'google');
+        validateUser(googUser.idToken, 'google')
       });
     } else {
       console.log('notelogged');

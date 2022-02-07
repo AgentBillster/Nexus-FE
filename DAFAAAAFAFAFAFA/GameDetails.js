@@ -3,10 +3,10 @@ import React, {useEffect, useState} from 'react';
 import {View, Image, TouchableOpacity, Text, Button} from 'react-native';
 import {RFPercentage} from 'react-native-responsive-fontsize';
 import RadialGradient from 'react-native-radial-gradient';
-import {ArrowLeft, CloseIcon} from '../../assets/Icons';
+import {ArrowLeft, CloseIcon} from '../src/assets/Icons';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
-import {SearchModal} from '../../components/SearchModal';
+import {SearchModal} from './SearchModal';
 
 const {width, height} = Dimensions.get('screen');
 const HEADER_IMAGE_HEIGHT = height * 0.4;

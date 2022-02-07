@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
-import {NavigationContainer} from '@react-navigation/native';
+import React, { useContext, useEffect, useState } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -11,9 +11,9 @@ import {
   Platform,
   StatusBar,
 } from 'react-native';
-import {AuthContext} from './AuthProvider';
+import { AuthContext } from './AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {AppTabs} from '../Dispatch';
+import { AppTabs } from '../Dispatch';
 // import {LoginManager} from 'react-native-fbsdk-next';
 // import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
 
@@ -22,10 +22,19 @@ AuthStack is solely responisble for handling UI for what happens when the user i
 Actual auth Logic is being handled inside of AuthProvider component and passed in via context api.
 */
 
+AsyncStorage.getAllKeys((err, keys) => {
+  AsyncStorage.multiGet(keys, (error, stores) => {
+    stores.map((result, i, store) => {
+      console.log({ [store[i][0]]: store[i][1] });
+      return true;
+    });
+  });
+});
+
 const Stack = createStackNavigator();
 
-const AuthScreen = ({navigation}) => {
-  const {handleGoogleLogin, facebookLogin} = useContext(AuthContext);
+const AuthScreen = ({ navigation }) => {
+  const { handleGoogleLogin, facebookLogin } = useContext(AuthContext);
 
   const loginthing = () => {
     LoginManager.logInWithPermissions(['public_profile']).then(
@@ -45,7 +54,7 @@ const AuthScreen = ({navigation}) => {
   };
 
   return (
-    <View style={{flex: 1, justifyContent: 'center'}}>
+    <View style={{ flex: 1, justifyContent: 'center' }}>
       <StatusBar hidden={true} />
 
       <TouchableOpacity
@@ -53,27 +62,29 @@ const AuthScreen = ({navigation}) => {
         onPress={() => {
           handleGoogleLogin();
         }}>
-        <Text style={{fontSize: 25}}>Log in with Google</Text>
+        <Text style={{ fontSize: 25 }}>Log in with Google</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.Button1}
         onPress={() => {
           loginthing();
         }}>
-        <Text style={{fontSize: 25}}>Log in with Facebook</Text>
+        <Text style={{ fontSize: 25 }}>Log in with Facebook</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.Button1}
         onPress={() => {
           navigation.navigate('register');
         }}>
-        <Text style={{fontSize: 25}}>Log in with Phone Number</Text>
+        <Text style={{ fontSize: 25 }}>Log in with Phone Number</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-const Register = ({navigation}) => {
+
+
+const Register = ({ navigation }) => {
   return (
     <View>
       <Text>i am a Register screen</Text>
@@ -86,7 +97,7 @@ export default function AuthStack() {
   return (
     <Stack.Navigator initialRouteName="AuthScreen">
       <Stack.Screen
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
         name="AuthScreen"
         component={AuthScreen}></Stack.Screen>
       <Stack.Screen name="register" component={Register}></Stack.Screen>

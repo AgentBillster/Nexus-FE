@@ -1,5 +1,5 @@
 import React from 'react';
-import {GameList} from './GameList';
+import {GameList} from '../src/PlayerScreens/SetupScreens/GameList';
 import {GameDetails} from './GameDetails';
 import {Button, Dimensions, Text, View} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';

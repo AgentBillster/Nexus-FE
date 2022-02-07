@@ -1,21 +1,33 @@
-import React, {useContext} from 'react';
-import {View, Text, Button} from 'react-native';
-import {AuthContext} from '../../AuthStuff/AuthProvider';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {ProfileTab} from './ProfileTab';
-import {PlayerSetup} from '../SetupScreens/PlayerSetup';
+import React, { useContext } from 'react';
+import { View, Text, Button } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ProfileTab } from './ProfileTab';
+import { SetupSlides } from '../SetupScreens/SetupSlides';
+import { AuthContext } from '../../AuthStuff/AuthProvider';
+import { SetupProvider } from "../SetupScreens/SetupProvider"
+
 
 const Tab = createBottomTabNavigator();
 
+
 function Somethingelse() {
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <Text>Home!</Text>
     </View>
   );
 }
 
 export const TabNavigator = () => {
+  const { user } = useContext(AuthContext);
+
+  if (user.setup === false) {
+    return (
+      <SetupSlides />
+    );
+  }
+
+
   return (
     <Tab.Navigator
 
@@ -40,12 +52,12 @@ export const TabNavigator = () => {
     >
       <Tab.Screen
         name="profile"
-        options={{tabBarBadge: 1, headerShown: false}}
+        options={{ tabBarBadge: 1, headerShown: false }}
         component={ProfileTab}
       />
       <Tab.Screen
         name="somethingelse"
-        options={{tabBarBadge: 3, headerShown: false}}
+        options={{ tabBarBadge: 3, headerShown: false }}
         component={Somethingelse}
       />
     </Tab.Navigator>

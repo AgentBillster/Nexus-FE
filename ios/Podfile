@@ -18,6 +18,8 @@ target 'gameThing' do
 
   pod 'SRSRadialGradient', :path => '../node_modules/react-native-radial-gradient'
 
+  pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
+
   target 'gameThingTests' do
     inherit! :complete
     # Pods for testing
