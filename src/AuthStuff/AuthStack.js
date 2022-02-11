@@ -22,14 +22,14 @@ AuthStack is solely responisble for handling UI for what happens when the user i
 Actual auth Logic is being handled inside of AuthProvider component and passed in via context api.
 */
 
-AsyncStorage.getAllKeys((err, keys) => {
-  AsyncStorage.multiGet(keys, (error, stores) => {
-    stores.map((result, i, store) => {
-      console.log({ [store[i][0]]: store[i][1] });
-      return true;
-    });
-  });
-});
+// AsyncStorage.getAllKeys((err, keys) => {
+//   AsyncStorage.multiGet(keys, (error, stores) => {
+//     stores.map((result, i, store) => {
+//       console.log({ [store[i][0]]: store[i][1] });
+//       return true;
+//     });
+//   });
+// });
 
 const Stack = createStackNavigator();
 

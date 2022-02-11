@@ -29,6 +29,7 @@ GoogleSignin.configure({
 export const AuthProvider = props => {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [setup, setSetup] = useState(null);
 
   const validateUser = (token, provider) => {
     axios
@@ -39,7 +40,7 @@ export const AuthProvider = props => {
       })
       .then(res => {
         setUser(res.data);
-
+        setSetup(res.data.setup)
       })
       .catch(err => console.log(err + "node?"));
   };
@@ -126,6 +127,7 @@ export const AuthProvider = props => {
         setLoading,
         handleGoogleLogin,
         logout,
+        setup,
       }}>
       {props.children}
     </AuthContext.Provider>

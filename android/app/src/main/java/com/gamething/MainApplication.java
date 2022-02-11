@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
+import fr.snapp.imagebase64.RNImgToBase64Package;
 import com.cmcewen.blurview.BlurViewPackage;
 import com.surajit.rnrg.RNRadialGradientPackage;
 import com.facebook.react.ReactInstanceManager;

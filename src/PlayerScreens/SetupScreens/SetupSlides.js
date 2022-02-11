@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
-import localhost from 'react-native-localhost';
 
 import {
   StatusBar,
@@ -16,17 +15,39 @@ import {
   TextInput,
 } from 'react-native';
 const { width, height } = Dimensions.get('screen');
-import { GameSelectStack } from '../../../DAFAAAAFAFAFAFA/GameSelectStack';
-import { SetupContext } from './SetupProvider';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { launchImageLibrary } from 'react-native-image-picker';
 import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { GameList } from './GameList';
+import { AuthContext } from '../../AuthStuff/AuthProvider';
+import ImgToBase64 from "react-native-image-base64"
 
 export const SetupSlides = ({ navigation }) => {
   const flatListRef = useRef(null);
   const [percentage, setPercentage] = useState(0);
+  const { user } = useContext(AuthContext);
+  const [setupInfo, setSetupInfo] = useState({
+    age: null,
+    playerImage: null,
+    playerName: null,
+  });
+
+
+
+  const createUser = () => {
+    axios
+      .post(`http://${"10.0.2.2"}:3000/player/createUser`, {
+        id: user._id,
+        setupInfo
+      })
+      .then(res => {
+        console.log(res.data)
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
 
   const getItemLayout = (data, index) => {
     return {
@@ -35,6 +56,7 @@ export const SetupSlides = ({ navigation }) => {
       index,
     };
   };
+
 
   const scrollToPage = index => {
     flatListRef.current.scrollToIndex({ index: index });
@@ -101,6 +123,7 @@ export const SetupSlides = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => {
             scrollToPage(2);
+            setSetupInfo({ ...setupInfo, age: age })
           }}
           style={styles.slideButton}>
           <Text>Continue</Text>
@@ -112,11 +135,15 @@ export const SetupSlides = ({ navigation }) => {
 
   const ImageUploadSlide = () => {
     const [file, setFile] = useState();
+    const [localuri, setLocaluri] = useState();
 
     const OpenImagePicker = async () => {
       await launchImageLibrary().then(res => {
-        setFile(res.assets[0].uri);
-      });
+        setLocaluri(res.assets[0].uri)
+        ImgToBase64.getBase64String(res.assets[0].uri)
+          .then(base64String => setFile(base64String))
+          .catch(err => console.log(err));
+      }).catch(err => { console.log(err) })
     };
 
     return (
@@ -126,12 +153,13 @@ export const SetupSlides = ({ navigation }) => {
         <TouchableOpacity onPress={OpenImagePicker}>
           <Image
             style={styles.upload}
-            source={file ? { uri: file } : require('../../assets/PNGS/user.png')}
+            source={file ? { uri: localuri } : require('../../assets/PNGS/user.png')}
           />
         </TouchableOpacity>
 
         <TouchableOpacity
           onPress={() => {
+            setSetupInfo({ ...setupInfo, playerImage: file })
             scrollToPage(3);
           }}
           style={styles.slideButton}>
@@ -143,39 +171,16 @@ export const SetupSlides = ({ navigation }) => {
 
 
   const UserNameSlide = () => {
-    const [userName, setUsername] = useState();
-    const [isAvailable, setIsAvailable] = useState(null);
-    const [timeLeft, setTimeleft] = useState();
-    let intervalRef = useRef();
-
-    useEffect(() => {
-      intervalRef.current = setTimeout(() => {
-        timeLeft >= 1 ? setTimeleft(prev => prev - 1) : null;
-      }, 1000);
-
-      if (timeLeft === 0) {
-        axios
-          .post(`http://${"10.0.2.2"}:3000/player/isNameAvailable`, {
-            username: userName,
-          })
-          .then(res => {
-            setIsAvailable(res.data);
-          });
-        clearTimeout(intervalRef.current);
-      }
-
-      return () => clearTimeout(intervalRef.current);
-    }, [timeLeft]);
+    const [name, setName] = useState();
 
     const handleInput = e => {
       const { text } = e.nativeEvent;
-      setUsername(text);
-      setTimeleft(2);
+      setName(text);
     };
 
     return (
       <View style={styles.slideDiv}>
-        <Text style={styles.slideHeader}>display name </Text>
+        <Text style={styles.slideHeader}>first and last name </Text>
 
         <TextInput
           style={{
@@ -186,18 +191,17 @@ export const SetupSlides = ({ navigation }) => {
             padding: 10,
           }}
           onChange={e => handleInput(e)}
-          value={userName}
+          value={name}
         />
 
-        {isAvailable ? <Text>good</Text> : <Text>enter vallid name</Text>}
-
         <TouchableOpacity
-          disabled={!isAvailable}
           onPress={() => {
+            setSetupInfo({ ...setupInfo, playerName: name })
+            createUser()
             scrollToPage(4);
           }}
           style={styles.slideButton}>
-          <Text>Continue</Text>
+          <Text>Create Account</Text>
         </TouchableOpacity>
       </View>
     );
@@ -208,7 +212,7 @@ export const SetupSlides = ({ navigation }) => {
     <AgeSlide />,
     <ImageUploadSlide />,
     <UserNameSlide />,
-    <GameList />
+    <GameList user={user} navigation={navigation} />
   ]
 
 

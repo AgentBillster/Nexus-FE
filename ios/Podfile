@@ -20,6 +20,8 @@ target 'gameThing' do
 
   pod 'react-native-blur', :path => '../node_modules/@react-native-community/blur'
 
+  pod 'react-native-image-base64', :path => '../node_modules/react-native-image-base64'
+
   target 'gameThingTests' do
     inherit! :complete
     # Pods for testing

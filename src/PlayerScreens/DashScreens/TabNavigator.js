@@ -19,37 +19,20 @@ function Somethingelse() {
 }
 
 export const TabNavigator = () => {
-  const { user } = useContext(AuthContext);
+  const { setup } = useContext(AuthContext);
 
-  if (user.setup === false) {
-    return (
-      <SetupSlides />
-    );
-  }
+  console.log(setup)
 
 
   return (
-    <Tab.Navigator
+    <Tab.Navigator>
+      {/* default tab is always the first therefore if user needs setup screen, we slip that in first and hide the bars*/}
+      {setup === false && < Tab.Screen
+        name="setup"
+        options={{ tabBarStyle: { display: "none" }, tabBarBadge: 1, headerShown: false }}
+        component={SetupSlides}
+      />}
 
-    // screenOptions={({route}) => ({
-    //   tabBarIcon: ({focused, color, size}) => {
-    //     let iconName;
-
-    //     if (route.name === 'Home') {
-    //       iconName = focused
-    //         ? 'ios-information-circle'
-    //         : 'ios-information-circle-outline';
-    //     } else if (route.name === 'Settings') {
-    //       iconName = focused ? 'ios-list-box' : 'ios-list';
-    //     }
-
-    //     // You can return any component that you like here!
-    //     return <Ionicons name={iconName} size={size} color={color} />;
-    //   },
-    //   tabBarActiveTintColor: 'tomato',
-    //   tabBarInactiveTintColor: 'gray',
-    // })}
-    >
       <Tab.Screen
         name="profile"
         options={{ tabBarBadge: 1, headerShown: false }}
@@ -63,3 +46,22 @@ export const TabNavigator = () => {
     </Tab.Navigator>
   );
 };
+
+// screenOptions={({route}) => ({
+//   tabBarIcon: ({focused, color, size}) => {
+//     let iconName;
+
+//     if (route.name === 'Home') {
+//       iconName = focused
+//         ? 'ios-information-circle'
+//         : 'ios-information-circle-outline';
+//     } else if (route.name === 'Settings') {
+//       iconName = focused ? 'ios-list-box' : 'ios-list';
+//     }
+
+//     // You can return any component that you like here!
+//     return <Ionicons name={iconName} size={size} color={color} />;
+//   },
+//   tabBarActiveTintColor: 'tomato',
+//   tabBarInactiveTintColor: 'gray',
+// })}

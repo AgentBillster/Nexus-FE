@@ -13,11 +13,13 @@ import localhost from 'react-native-localhost';
 import { SharedElement } from 'react-navigation-shared-element';
 import { Modals } from "./Modals"
 import { BlurView, VibrancyView } from "@react-native-community/blur";
+import { TabNavigator } from '../DashScreens/TabNavigator';
+import { ProfileTab } from '../DashScreens/ProfileTab';
 
 
 const { width, height } = Dimensions.get('screen');
 
-export const GameList = () => {
+export const GameList = ({ user, navigation }) => {
   const [games, setGames] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
@@ -30,6 +32,64 @@ export const GameList = () => {
     }
     return dataList;
   };
+
+
+  const linkGame = (game) => {
+    // dummyData
+    const gameData = {
+      game: game,
+      summoner: "Jhin Diesel",
+      main: {
+        name: "viego",
+        position: "mid",
+        wins: 284,
+        losses: 195,
+        winrate: "59.29"
+      },
+      season: {
+        wins: 341,
+        losses: 213,
+        winrate: "61.55",
+        rank: "Platinum"
+      },
+      backups: [
+        {
+          champ: "aphelios",
+          winrate: "60.25"
+        },
+        {
+          champ: "pantheon",
+          winrate: "52.51"
+        },
+        {
+          champ: "yasuo",
+          winrate: "70.46"
+        },
+        {
+          champ: "yorick",
+          winrate: "58.54"
+        }
+      ]
+
+    }
+    axios
+      .post(`http://${"10.0.2.2"}:3000/player/link`, {
+        id: user._id,
+        gameData
+      })
+      .then(res => {
+        console.log(res.data)
+        if (res.data) {
+          
+          navigation.navigate({ name: "profile" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+
 
   useEffect(() => {
     axios
@@ -61,8 +121,8 @@ export const GameList = () => {
     return (
       <TouchableOpacity
         onPress={() => {
-          // OPEN MODAL
-          setModalVisible(true)
+          // setModalVisible(true)
+          linkGame(item.name)
         }}
         style={{
           flex: 1,
@@ -110,6 +170,9 @@ export const GameList = () => {
         <Modals modalVisible={modalVisible} setModalVisible={setModalVisible} >
           <Text>afasfasf</Text>
         </Modals>
+
+
+
 
 
 
