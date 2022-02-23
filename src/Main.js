@@ -5,7 +5,7 @@ import { AuthContext } from './AuthStuff/AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AuthStack from './AuthStuff/AuthStack';
 import { Dispatch, getFromStorage } from './Utils/HelperFunctions';
-import { TabNavigator } from './PlayerScreens/DashScreens/TabNavigator';
+import { DashNavigator } from './PlayerScreens/DashScreens/DashNavigator';
 
 // import {Profile, LoginManager} from 'react-native-fbsdk-next';
 
@@ -17,7 +17,7 @@ export const Main = () => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      background: 'rgb(27,34,47)',
+      background: 'white',
     },
   };
 
@@ -49,7 +49,7 @@ export const Main = () => {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      {user ? <TabNavigator /> : <AuthStack />}
+      {user ? <DashNavigator /> : <AuthStack />}
     </NavigationContainer>
   );
 };
@@ -58,7 +58,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+
   },
+
   horizontal: {
     flexDirection: 'row',
     justifyContent: 'space-around',

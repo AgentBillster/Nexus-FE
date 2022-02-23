@@ -22,14 +22,16 @@ AuthStack is solely responisble for handling UI for what happens when the user i
 Actual auth Logic is being handled inside of AuthProvider component and passed in via context api.
 */
 
-// AsyncStorage.getAllKeys((err, keys) => {
-//   AsyncStorage.multiGet(keys, (error, stores) => {
-//     stores.map((result, i, store) => {
-//       console.log({ [store[i][0]]: store[i][1] });
-//       return true;
-//     });
-//   });
-// });
+AsyncStorage.getAllKeys((err, keys) => {
+  AsyncStorage.multiGet(keys, (error, stores) => {
+    stores.map((result, i, store) => {
+      console.log({ [store[i][0]]: store[i][1] });
+      return true;
+    });
+  });
+});
+
+
 
 const Stack = createStackNavigator();
 
@@ -54,30 +56,29 @@ const AuthScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center' }}>
+    <View style={{ flex: 1, justifyContent: "flex-end" }}>
       <StatusBar hidden={true} />
-
       <TouchableOpacity
-        style={styles.Button1}
+        style={styles.Button}
         onPress={() => {
           handleGoogleLogin();
         }}>
-        <Text style={{ fontSize: 25 }}>Log in with Google</Text>
+        <Text style={{ fontSize: 25, textAlign: "center" }}>Log in with Google</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.Button1}
+      {/* <TouchableOpacity
+        style={styles.Button}
         onPress={() => {
           loginthing();
         }}>
         <Text style={{ fontSize: 25 }}>Log in with Facebook</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.Button1}
+        style={styles.Button}
         onPress={() => {
           navigation.navigate('register');
         }}>
         <Text style={{ fontSize: 25 }}>Log in with Phone Number</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
@@ -106,11 +107,13 @@ export default function AuthStack() {
 }
 
 const styles = StyleSheet.create({
-  Button1: {
-    width: '100%',
+  Button: {
+    width: '90%',
     padding: 20,
+    alignSelf: "center",
     borderRadius: 10,
     backgroundColor: 'orange',
+    marginBottom: 100
   },
   roundButton2: {
     marginTop: 20,

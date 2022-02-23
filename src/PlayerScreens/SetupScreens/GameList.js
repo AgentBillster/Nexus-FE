@@ -13,13 +13,14 @@ import localhost from 'react-native-localhost';
 import { SharedElement } from 'react-navigation-shared-element';
 import { Modals } from "./Modals"
 import { BlurView, VibrancyView } from "@react-native-community/blur";
-import { TabNavigator } from '../DashScreens/TabNavigator';
+import { TabNavigator } from '../DashScreens/DashNavigator';
 import { ProfileTab } from '../DashScreens/ProfileTab';
+import { AuthContext } from '../../AuthStuff/AuthProvider';
 
 
 const { width, height } = Dimensions.get('screen');
 
-export const GameList = ({ user, navigation }) => {
+export const GameList = ({ user, setUser, navigation }) => {
   const [games, setGames] = useState(null);
   const [loading, setLoading] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
@@ -78,10 +79,9 @@ export const GameList = ({ user, navigation }) => {
         gameData
       })
       .then(res => {
-        console.log(res.data)
         if (res.data) {
-          
-          navigation.navigate({ name: "profile" });
+          setUser(res.data)
+          navigation.navigate({ name: "Home" });
         }
       })
       .catch(err => {

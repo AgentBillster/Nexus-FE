@@ -25,7 +25,7 @@ import ImgToBase64 from "react-native-image-base64"
 export const SetupSlides = ({ navigation }) => {
   const flatListRef = useRef(null);
   const [percentage, setPercentage] = useState(0);
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext)
   const [setupInfo, setSetupInfo] = useState({
     age: null,
     playerImage: null,
@@ -35,6 +35,7 @@ export const SetupSlides = ({ navigation }) => {
 
 
   const createUser = () => {
+    // possibly at one point cut this and send all data after linked game
     axios
       .post(`http://${"10.0.2.2"}:3000/player/createUser`, {
         id: user._id,
@@ -212,7 +213,7 @@ export const SetupSlides = ({ navigation }) => {
     <AgeSlide />,
     <ImageUploadSlide />,
     <UserNameSlide />,
-    <GameList user={user} navigation={navigation} />
+    <GameList user={user} setUser={setUser} navigation={navigation} />
   ]
 
 

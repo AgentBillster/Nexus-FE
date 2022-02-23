@@ -4,7 +4,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ProfileTab } from './ProfileTab';
 import { SetupSlides } from '../SetupScreens/SetupSlides';
 import { AuthContext } from '../../AuthStuff/AuthProvider';
-import { SetupProvider } from "../SetupScreens/SetupProvider"
+import { Home } from './Home';
+import { ClanList } from './ClanList';
+import { Clan } from './Clan';
 
 
 const Tab = createBottomTabNavigator();
@@ -18,28 +20,35 @@ function Somethingelse() {
   );
 }
 
-export const TabNavigator = () => {
-  const { setup } = useContext(AuthContext);
-
-  console.log(setup)
-
+export const DashNavigator = () => {
+  const { user } = useContext(AuthContext);
 
   return (
     <Tab.Navigator>
       {/* default tab is always the first therefore if user needs setup screen, we slip that in first and hide the bars*/}
-      {setup === false && < Tab.Screen
+      {user.setup === false && < Tab.Screen
         name="setup"
         options={{ tabBarStyle: { display: "none" }, tabBarBadge: 1, headerShown: false }}
         component={SetupSlides}
       />}
 
       <Tab.Screen
-        name="profile"
+        name="Home"
         options={{ tabBarBadge: 1, headerShown: false }}
-        component={ProfileTab}
+        component={Home}
       />
+
+      {user.clan ? (<Tab.Screen
+        name="Clan"
+        options={{ tabBarBadge: 3, headerShown: false }}
+        component={Clan}
+      />) : <Tab.Screen
+        name="Clan"
+        options={{ tabBarBadge: 3, headerShown: false }}
+        component={ClanList} />}
+
       <Tab.Screen
-        name="somethingelse"
+        name="play"
         options={{ tabBarBadge: 3, headerShown: false }}
         component={Somethingelse}
       />

@@ -9,7 +9,7 @@ import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 
 const { width, height } = Dimensions.get('screen');
 
-
+const IMAGE_HEIGHT = height * 0.40
 
 
 export const ProfileTab = () => {
@@ -32,7 +32,7 @@ export const ProfileTab = () => {
             width: width,
             zIndex: 2,
             opacity: 1,
-            height: height * 0.45
+            height: IMAGE_HEIGHT
             // transform: [{translateY: }],
           }} />
 
@@ -55,24 +55,58 @@ export const ProfileTab = () => {
           </View>
 
         </View>
+      </View>
 
-
-
+      <View style={profileStyles.statCont}>
+        <View style={profileStyles.metricBoxes}><Text style={profileStyles.statText}>23W</Text></View>
+        <View style={profileStyles.metricBoxes}><Text style={profileStyles.statText}>2L</Text></View>
+        <View style={profileStyles.metricBoxes}><Text style={profileStyles.statText}>89.52%</Text></View>
       </View>
 
       <View
         style={[
           profileStyles.historyCont,
-          { height: height * 0.50 - tabBarHeight },
+          { height: height * 0.49 - tabBarHeight },
         ]}>
+
+        {/* <View style={profileStyles.cardCont}> */}
+        <CardSmall />
+        <CardSmall />
+        {/* </View> */}
+
+        {/* <View style={profileStyles.cardCont}> */}
+        <CardLong />
+        {/* </View> */}
+
       </View>
     </View>
   );
 };
 
+
+
+
+
+
+const CardSmall = () => {
+  return (
+    <View style={profileStyles.cardSmall}>
+
+    </View>
+  )
+}
+
+const CardLong = () => {
+  return (
+    <View style={profileStyles.cardLong}>
+
+    </View>
+  )
+}
+
 const profileStyles = StyleSheet.create({
   imageContainer: {
-    height: height * 0.45,
+    height: IMAGE_HEIGHT,
     // borderColor: 'red',
     // borderWidth: 1,
     backgroundColor: '#3F4080',
@@ -80,7 +114,7 @@ const profileStyles = StyleSheet.create({
   },
 
   imageContainerItems: {
-    height: height * 0.45,
+    height: IMAGE_HEIGHT,
     position: "absolute",
     zIndex: 2
   },
@@ -101,15 +135,46 @@ const profileStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     transform: [{ rotate: '90deg' }]
-
   },
 
+  statCont: {
+    flexDirection: "row",
+    marginTop: 0
+  },
 
+  metricBoxes: {
+    // borderRightWidth: 1,
+    borderWidth: 1,
+    width: width / 3,
+    alignItems: "center",
+  },
+
+  statText: {
+    color: "white",
+    fontSize: RFPercentage(4.5),
+  },
 
   historyCont: {
-    borderColor: 'red',
     borderWidth: 1,
-    backgroundColor: '',
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignContent: "center"
+  },
+
+  cardSmall: {
+    backgroundColor: "whitesmoke",
+    width: width * 0.55,
+    height: "40%",
+    borderRadius: 6,
+    margin: "3%"
+  },
+
+  cardLong: {
+    backgroundColor: "whitesmoke",
+    width: width * 0.3,
+    height: "86.5%",
+    borderRadius: 6,
+    margin: "2%"
   },
 
   img: {
@@ -117,8 +182,5 @@ const profileStyles = StyleSheet.create({
     height: '100%',
     position: "absolute"
   },
-
-
-
 
 });
