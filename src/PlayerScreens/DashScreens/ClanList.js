@@ -1,20 +1,19 @@
 import FadingEdge from 'react-native-fading-edge';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { View, Text, StatusBar, StyleSheet, PermissionsAndroid, Dimensions, Image, ActivityIndicator, Button, TouchableOpacity } from 'react-native';
 import MapView, { Circle, Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
-import { requestLocationPermission } from '../../Utils/HelperFunctions';
-import RadialGradient from 'react-native-radial-gradient';
 import LinearGradient from 'react-native-linear-gradient';
-import Slider from "@react-native-community/slider";
 import axios from 'axios';
 import { AuthContext } from '../../AuthStuff/AuthProvider';
 import { FlatList } from 'react-native-gesture-handler';
+import { SliderComponent } from '../../components/SliderComponent';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
+const TopTab = createMaterialTopTabNavigator();
 
 const { width, height } = Dimensions.get('screen');
-
-
 
 
 export const ClanList = () => {
@@ -203,6 +202,14 @@ export const ClanList = () => {
         );
     }
 
+    const applyToClan = (clanID) => {
+        axios
+            .post(`http://${"10.0.2.2"}:3000/clan/applyToClan`, { clanID: clanID, playerID: user._id })
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err));
+    }
 
     const getClans = () => {
         axios
@@ -211,7 +218,6 @@ export const ClanList = () => {
                 setClans(res.data)
             })
             .catch(err => console.log(err));
-        console.log("YURRRR")
     }
 
     const createClan = () => {
@@ -223,52 +229,29 @@ export const ClanList = () => {
             .catch(err => console.log(err));
     }
 
-
     const onSliderValueChange = (value) => {
         setSliderValue(Math.round(value * 10) / 10)
     }
 
+
     useEffect(() => {
-        // requestLocationPermission()
         getLocation()
     }, []);
 
-
-
-    loading && (
-        <View style={styles.mapContainer}>
-            <ActivityIndicator size="large" color="#00ff00" />
-        </View>
-    )
-
-
-
-    const _renderItem = ({ item }) => {
+    if (loading) {
         return (
-            <TouchableOpacity
-                style={{
-                    borderWidth: 1,
-                    margin: 10,
-                    alignSelf: "center",
-                    height: 200,
-                    width: width * .89
-
-                }}
-            >
-                <Text>{item.name}</Text>
-            </TouchableOpacity>
-        );
+            <View style={styles.mapContainer} >
+                <ActivityIndicator size="large" color="#00ff00" />
+            </View >
+        )
     }
-
 
     return (
         <View>
-            <View style={styles.header}>
-                <Slider minimumValue={2} maximumValue={20} step={.1} value={sliderValue} onValueChange={onSliderValueChange} onSlidingComplete={getClans} />
-                <Text>{sliderValue}</Text>
-            </View>
+            <SliderComponent onSliderValueChange={onSliderValueChange} getClans={getClans} sliderValue={sliderValue} />
             <View style={styles.mapContainer}>
                 <MapView
+                    onMapReady={() => { getClans }}
                     provider={PROVIDER_GOOGLE} // remove if not using Google Maps
                     style={styles.map}
                     loadingEnabled={true}
@@ -280,7 +263,6 @@ export const ClanList = () => {
                         longitudeDelta: sliderValue / 25,
                     }}
                 >
-
                     <Marker
                         coordinate={{
                             latitude: myLocation.lat,
@@ -318,27 +300,63 @@ export const ClanList = () => {
                 </MapView>
             </View>
 
-
-
-
-            <View style={styles.clanScrollContainer}>
-                <Button onPress={createClan} title='MARK LOCATION' />
-                <Button onPress={getClans} title='GETMARKERS IN RANGE' />
-
+            <Button title='createclan' onPress={createClan} />
+            <View style={{ height: "100%" }}>
+                <TopTab.Navigator screenOptions={{
+                    tabBarPressColor: "white",
+                    swipeEnabled: true
+                }}>
+                    <TopTab.Screen name="List" children={() => <List clans={clans} applyToClan={applyToClan} />} />
+                    <TopTab.Screen name="Status" children={() => <Status />} />
+                </TopTab.Navigator>
             </View>
-
-            <View >
-                <FlatList
-                    data={clans}
-                    keyExtractor={item => item._id}
-                    renderItem={_renderItem}
-                />
-            </View>
-
         </View >
     )
 
 }
+
+
+
+
+const List = ({ clans, applyToClan }) => {
+
+    const _renderItem = ({ item }) => {
+        return (
+            <TouchableOpacity
+                onPress={() => { applyToClan(item._id) }}
+                style={{
+                    borderWidth: 1,
+                    margin: 10,
+                    alignSelf: "center",
+                    height: 100,
+                    width: width * .89
+                }}
+            >
+                <Text>{item.name}</Text>
+                <Text>{item.captain.email}</Text>
+            </TouchableOpacity>
+        );
+    }
+
+    return (
+        <View style={{ marginTop: 15, height: 400, width: width }}>
+            <FlatList
+                data={clans}
+                keyExtractor={item => item._id}
+                renderItem={_renderItem}
+            />
+        </View>)
+}
+
+const Status = ({ clans }) => {
+
+    return (
+        <View >
+            <Text>asfasf</Text>
+        </View>)
+}
+
+
 
 
 const styles = StyleSheet.create({

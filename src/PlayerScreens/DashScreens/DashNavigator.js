@@ -20,8 +20,10 @@ function Somethingelse() {
   );
 }
 
+
 export const DashNavigator = () => {
   const { user } = useContext(AuthContext);
+
 
   return (
     <Tab.Navigator>
@@ -38,14 +40,16 @@ export const DashNavigator = () => {
         component={Home}
       />
 
+      {/* useContext here clan needs some global state */}
+
       {user.clan ? (<Tab.Screen
         name="Clan"
         options={{ tabBarBadge: 3, headerShown: false }}
-        component={Clan}
+        children={() => <Clan user={user} />}
       />) : <Tab.Screen
         name="Clan"
         options={{ tabBarBadge: 3, headerShown: false }}
-        component={ClanList} />}
+        children={() => <ClanList />} />}
 
       <Tab.Screen
         name="play"

@@ -39,6 +39,9 @@ export const AuthProvider = props => {
       })
       .then(res => {
         setUser(res.data);
+        const k = ['isAuthed', 'true'];
+        const i = ['withProvider', 'google'];
+        AsyncStorage.multiSet([i, k]);
       })
       .catch(err => console.log(err + "node?"));
   };
@@ -47,7 +50,6 @@ export const AuthProvider = props => {
     const bool = await AsyncStorage.getItem('isAuthed');
     if (bool === 'true') {
       console.log("authed")
-
       await GoogleSignin.signInSilently().then(googUser => {
         validateUser(googUser.idToken, 'google')
       });
@@ -56,9 +58,6 @@ export const AuthProvider = props => {
       await GoogleSignin.signIn()
         .then(googUser => {
           validateUser(googUser.idToken, 'google');
-          const i = ['withProvider', 'google'];
-          const k = ['isAuthed', 'true'];
-          AsyncStorage.multiSet([i, k]);
         })
         .catch(error => {
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {

@@ -10,17 +10,19 @@ import {
   TouchableOpacity,
   Platform,
   StatusBar,
+  Dimensions,
 } from 'react-native';
 import { AuthContext } from './AuthProvider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppTabs } from '../Dispatch';
-// import {LoginManager} from 'react-native-fbsdk-next';
-// import {LoginButton, AccessToken} from 'react-native-fbsdk-next';
+import LottieView from 'lottie-react-native';
+import { transform } from '@babel/core';
 
 /*
 AuthStack is solely responisble for handling UI for what happens when the user is NOT signed in. 
 Actual auth Logic is being handled inside of AuthProvider component and passed in via context api.
 */
+
 
 AsyncStorage.getAllKeys((err, keys) => {
   AsyncStorage.multiGet(keys, (error, stores) => {
@@ -31,9 +33,9 @@ AsyncStorage.getAllKeys((err, keys) => {
   });
 });
 
-
-
 const Stack = createStackNavigator();
+const { width, height } = Dimensions.get('screen');
+const circleSize = width * 1.4
 
 const AuthScreen = ({ navigation }) => {
   const { handleGoogleLogin, facebookLogin } = useContext(AuthContext);
@@ -54,32 +56,55 @@ const AuthScreen = ({ navigation }) => {
       },
     );
   };
-
+  // backgroundColor: "rgb(34,41,47)"
   return (
-    <View style={{ flex: 1, justifyContent: "flex-end" }}>
+    <View style={{ flex: 1, backgroundColor: "white" }}>
       <StatusBar hidden={true} />
-      <TouchableOpacity
-        style={styles.Button}
-        onPress={() => {
-          handleGoogleLogin();
-        }}>
-        <Text style={{ fontSize: 25, textAlign: "center" }}>Log in with Google</Text>
-      </TouchableOpacity>
+
+      <View style={styles.circleAnimContainer}>
+        <LottieView
+          style={{ width: "100%", height: "100%", }}
+          source={require("../assets/lottie/thing.json")}
+          autoPlay
+        />
+      </View>
+
+      <View style={styles.textContainer}>
+        <Text>Sign in!</Text>
+      </View>
+
+
+
+
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.Button}
+          onPress={() => {
+            handleGoogleLogin();
+          }}>
+          <Text style={{ fontSize: 15, textAlign: "center", }}>Continue with Google</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.Button, { backgroundColor: "rgb(58,87,155)" }]}
+          onPress={() => {
+            loginthing();
+          }}>
+          <Text style={{ fontSize: 15, textAlign: "center", color: "white" }}>Continue with Facebook</Text>
+        </TouchableOpacity>
+      </View>
+
+
+
+
+
       {/* <TouchableOpacity
-        style={styles.Button}
-        onPress={() => {
-          loginthing();
-        }}>
-        <Text style={{ fontSize: 25 }}>Log in with Facebook</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
         style={styles.Button}
         onPress={() => {
           navigation.navigate('register');
         }}>
         <Text style={{ fontSize: 25 }}>Log in with Phone Number</Text>
       </TouchableOpacity> */}
-    </View>
+    </View >
   );
 };
 
@@ -107,22 +132,44 @@ export default function AuthStack() {
 }
 
 const styles = StyleSheet.create({
+
+  buttonContainer: {
+    width,
+    height: height * 0.2,
+    position: "absolute",
+    bottom: height * .15,
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+
+  textContainer: {
+    marginTop: 20
+  },
+
+  starsAnimContainer: {
+    width,
+    height: height * 0.35
+  },
+
+  circleAnimContainer: {
+    height: height * 0.3,
+    borderWidth: 1,
+  },
+
   Button: {
     width: '90%',
     padding: 20,
-    alignSelf: "center",
-    borderRadius: 10,
-    backgroundColor: 'orange',
-    marginBottom: 100
+    borderRadius: 20,
+    backgroundColor: "white",
   },
-  roundButton2: {
-    marginTop: 20,
-    width: 150,
-    height: 150,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 100,
-    backgroundColor: '#ccc',
-  },
+  // roundButton2: {
+  //   marginTop: 20,
+  //   width: 150,
+  //   height: 150,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   padding: 10,
+  //   borderRadius: 100,
+  //   backgroundColor: '#ccc',
+  // },
 });
