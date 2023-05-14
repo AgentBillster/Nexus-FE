@@ -1,4 +1,3 @@
-# Nexus: Accessible centralized esports gaming platform
 
 The concept of Nexus is to create an application that enables anyone to experience the insane energy and thrill of in-person competitive esports gaming. With the growing demand of competitive ranked gaming the world needs a centralized platform. in other words One rank to rule them all. users will be able to create participate or spectate both rewarded and non-rewarded ranked esports events in their local community in an organized and streamlined manner. I aim to bring back the electric atmosphere of the old arcades that my father spoke of, while infusing it with the beauty of modern gaming technology.
 
@@ -67,16 +66,14 @@ Thank you for your interest in Climb!
 
 
 
-## Project Name & Pitch
 
-#### Example:
 
-TweetWorld 
+# Nexus: Accessible centralized esports gaming platform
 
-An application used to filter data form Twitter based on user preference, built with React, Redux, JavaScript, and CSS.
+The concept of Nexus is to create an application that enables anyone to experience the insane energy and thrill of in-person competitive esports gaming. With the growing demand of competitive ranked gaming the world needs a centralized platform. in other words One rank to rule them all. users will be able to create participate or spectate both rewarded and non-rewarded ranked esports events in their local community in an organized and streamlined manner. I aim to bring back the electric atmosphere of the old arcades that my father spoke of, while infusing it with the beauty of modern gaming technology.
 
-## Project Status
-(only necessary if incomplete)
+## Project Status - 
+
 
 #### Example:
 
