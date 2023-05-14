@@ -1,12 +1,21 @@
 # Nexus: Accessible centralized esports gaming platform
 Nexus is an app designed to bring the energy and excitement of in-person esports to anyone, anywhere. It's a centralized platform that allows users to create, participate, or spectate rewarded ranked esports events in their local community. My goal is to recreate the electric atmosphere of old arcades and lan battles my Father spoke of while infusing it with modern gaming technology.
 
+## Tools
+- react-navigation/native
+- asyncstorage
+- Geolocation API
+- steam API
+- google SDK
+- facebook SDK
+- react native google maps
+
 ## Project Flow & Status
 ROLE PLAYER:
 - Player can authenticate via Google. ✓
 - Player will build profile via onbaording slides that ask age, image, and username to use on the app. ✓
 - Player presented a list of popular games with active sports organizations. ✓
-- Player can choose a game and link actual game profile to get ranks, stats etc... send to our DB  ✓
+- Player can choose a game and link actual game profile to get ranks, stats etc... send to our DB (only cs implemented.)
 
  dashTab1
 - player can view clans in area or create one ✓
@@ -43,7 +52,6 @@ Advertise your venue: You can use the app to advertise your venue and attract mo
 
 
 ## Reflection
-Tools utilized:
 Why did you stopped working on this?
 Challenges:
     
