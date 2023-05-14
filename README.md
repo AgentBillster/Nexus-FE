@@ -1,40 +1,5 @@
 
-The concept of Nexus is to create an application that enables anyone to experience the insane energy and thrill of in-person competitive esports gaming. With the growing demand of competitive ranked gaming the world needs a centralized platform. in other words One rank to rule them all. users will be able to create participate or spectate both rewarded and non-rewarded ranked esports events in their local community in an organized and streamlined manner. I aim to bring back the electric atmosphere of the old arcades that my father spoke of, while infusing it with the beauty of modern gaming technology.
 
-## Implemented Features 
-
-# Role Player
-- Player can authenticate via Google.
-- Player are shown an onboarding section to build their profile.
-- Player can add their age, image, and username to use on the app.
-- Player are then given a list of popular games with active sports organizations.
-- Player can click on a game and it will display a page with more information on that game, almost like a profile itself.
-- Player can link their game and platform from the page (only CS implemented) then send to dash
-- Users that have no clan get sent to the clan screen in the dashboard.
-- Users can browse clans nearby in an intuitive maps view or create their own.
-- Users can view their own profile.
-
-
-# Role Venue/Host
-- venue can authencate via google
-
-
-## MVP
-
-# Role User
-- Users can authenticate via Google.
-- Users are shown an onboarding section to build their profile.
-- Users can add their age, image, and username to use on the app.
-- Users are then given a list of popular games with active sports organizations.
-- Users can click on a game and it will display a page with more information on that game, almost like a profile itself.
-- Users can link their game and platform from the page (only CS implemented).
-- All data gathered is added to our database (ranks, stats, profile data, etc...) and sent to a secure route.
-- Users that have no clan get sent to the clan screen in the dashboard.
-- Users can browse clans nearby in an intuitive maps view or create their own.
-- Users can view their own profile.
-
-# Role Venue/Host
-- venue can authencate via google
 
 
 
@@ -72,12 +37,30 @@ Thank you for your interest in Climb!
 
 The concept of Nexus is to create an application that enables anyone to experience the insane energy and thrill of in-person competitive esports gaming. With the growing demand of competitive ranked gaming the world needs a centralized platform. in other words One rank to rule them all. users will be able to create participate or spectate both rewarded and non-rewarded ranked esports events in their local community in an organized and streamlined manner. I aim to bring back the electric atmosphere of the old arcades that my father spoke of, while infusing it with the beauty of modern gaming technology.
 
-## Project Status - 
+## Project Status
 
+# Implemented Features:
+  role player:
+- Player can authenticate via Google.
+- Player are shown an onboarding section to build their profile.
+- Player can add their age, image, and username to use on the app.
+- Player are then given a list of popular games with active sports organizations.
+- Player can click on a game and it will display a page with more information on that game, almost like a profile itself.
+- Player can link their game and platform from the page (only CS implemented) then send to dash
+- Users that have no clan get sent to the clan screen in the dashboard.
+- Users can browse clans nearby in an intuitive maps view or create their own.
+- Users can view their own profile.
 
-#### Example:
+  role venue:
+  - venue can authenticate via google
 
-This project is currently in development. Users can filter tweets by username and keyword and see visual data representation. Functionality to sort by additional parameters is in progress.
+# MVP
+  role player:
+  
+ 
+
+# Role Venue/Host
+- venue can authencate via google
 
 ## Project Screen Shot(s)
 
