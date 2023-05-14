@@ -2,15 +2,16 @@
 Nexus is an app designed to bring the energy and excitement of in-person esports to anyone, anywhere. It's a centralized platform that allows users to create, participate, or spectate rewarded ranked esports events in their local community. My goal is to recreate the electric atmosphere of old arcades and lan battles my Father spoke of while infusing it with modern gaming technology.
 
 ## Project Flow & Status
-Auth
+ROLE PLAYER:
 - Player can authenticate via Google. ✓
 - Player will build profile via onbaording slides that ask age, image, and username to use on the app. ✓
 - Player presented a list of popular games with active sports organizations. ✓
 - Player can choose a game and link actual game profile to get ranks, stats etc... send to our DB  ✓
 
  dashTab1
-- player can view clans in area or create one.  ✓
-- clan creation needs streamiled way to give slan personality. emblem creation etc...
+- player can view clans in area or create one ✓
+- player has feed of events and content posted by community.
+- player has streamlined clan creation tool that gives personality (emblem maker and stuff)
 - player can view the most popular venues nearby with any events tourny sign up boards live games and much more.
 
 dashtab2
@@ -20,8 +21,16 @@ dashtab2
  - player can ready. doing so will put at risk or challenges or random queue from our algorithm
  - player can accept or deny all games
  - get live game data from linked accounts
- 
- 
+ - distribute creds upon game end to venue players and company
+ - back in lobby
+
+
+ROLE VENUE:
+ - venue can create a venue profile to be approved - has to meet very specific criteria to be on nexus. 
+ - venue can automatically manage player or team check in via geolocation and some sort of prompt confirmation
+ - You can view live game data from linked player accounts to monitor ongoing games and ensure fair play.
+ - venue can view how much creds have accrued over time and withdrawal
+Advertise your venue: You can use the app to advertise your venue and attract more players. This can include features such as a list of amenities, reviews from other players, and information about upcoming events.
 
 
 ## Getting Started
@@ -35,14 +44,8 @@ dashtab2
 
 ## Reflection
 Tools utilized:
-react native geo sum sum sum.
-
 Why did you stopped working on this?
-    Ya boy needs a job
-  
 Challenges:
-    the only way i see this working is if all games played are for monetary value. this way  
-    profit me as well for venues as i see no other way to incentivize a butnch of kids using the venue equipment.
     
 
 
