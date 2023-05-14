@@ -1,4 +1,5 @@
-Climb: Competitive Esports Gaming Platform
+#Climb: Competitive Esports Gaming Platform
+
 The concept of Climb is to create an application that enables anyone to experience the insane energy and thrill of in-person competitive esports gaming. With an easy-to-use centralized platform, users will be able to create or participate in both rewarded and non-rewarded esports events in an organized and streamlined manner. I aim to bring back the electric atmosphere of the old arcades that my father spoke of, while infusing it with the beauty of modern gaming technology.
 
 Implemented Features
