@@ -46,22 +46,13 @@ Advertise your venue: You can use the app to advertise your venue and attract mo
 
 ## Getting Started
 
-1. Clone the repository: `git clone https://github.com/your-username/gameThing.git`
+1. Clone the repository: `git clone https://github.com/your-username/Nexus-FE.git`
 2. clone the repository
-3. Navigate to the project directory: `cd gameThing`
+3. Navigate to the project directory: `cd Nexus-FE`
 4. Install dependencies: `npm install`
 5. Start the server: `npm start`
 
 
-## Reflection
-Why did you stopped working on this?
-Challenges:
     
 
-
-## Collaboration
-
-This project has a large scope and we are looking for collaborators who are passionate about esports and have experience in web development. If you are interested in contributing to Climb, please contact us at [email address]. We welcome all feedback, bug reports, and feature requests.
-
-Thank you for your interest in Climb!
 
