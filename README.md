@@ -31,9 +31,7 @@ dashtab2
  - player can view and challenge other players and clans at venue for 
  - player can ready. doing so will put at risk or challenges or random queue from our algorithm
  - player can accept or deny all games
- - get live game data from linked accounts
- - distribute creds upon game end to venue players and company
- - back in lobby
+ - distribute creds upon game end to venue players and company.
 
 
 ROLE VENUE:
