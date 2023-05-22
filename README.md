@@ -1,12 +1,12 @@
-## Project Flow
+## Project Flow 
 ROLE PLAYER:
-- Player can authenticate via Google. 
-- Player will build profile via onbaording slides that ask age, image, and username to use on the app. 
-- Player presented a list of popular games with active sports organizations. 
-- Player can choose a game and link actual game profile to get ranks, stats etc... send to our DB (only cs implemented.)
+- Player can authenticate via Google. ✓
+- Player will build profile via onbaording slides that ask age, image, and username to use on the app. ✓
+- Player presented a list of popular games with active sports organizations.  ✓
+- Player can choose a game and link actual game profile to get ranks, stats etc... send to our DB (only cs implemented.) ✓
 
  dashTab1
-- player can view clans in area or create one 
+- player can view clans in area or create one  ✓
 - player has feed of events and content posted by community.
 - player has streamlined clan creation tool that gives personality (emblem maker and stuff)
 - player can view the most popular venues nearby with any events tourny sign up boards live games and much more.
